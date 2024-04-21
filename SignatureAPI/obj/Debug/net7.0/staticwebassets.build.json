@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "A88MhCo5madXSM9ElhIvcFn7oFVaxEV8zdYa9XxPEks=",
+  "Source": "SignatureAPI",
+  "BasePath": "_content/SignatureAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
