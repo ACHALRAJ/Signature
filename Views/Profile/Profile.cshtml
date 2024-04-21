@@ -1,0 +1,79 @@
+﻿@model SignatureMain.Models.Profile
+
+@{
+    ViewData["Title"] = "Profile";
+}
+<link href="https://cdn.jsdelivr.net/npm/signature_pad/dist/signature-pad.css" rel="stylesheet">
+
+<h1>ProfileView</h1>
+
+<h4>Profile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Profile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Signature" class="control-label"></label>
+                <canvas id="signatureCanvas" width="400" height="200" ></canvas>
+                <span asp-validation-for="Signature" class="text-danger"></span>
+                <input asp-for="Signature" type="hidden" id="signatureData" name="Signature" />
+                <button type="button" onclick="saveSignature()">Save Signature</button>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" onclick="clearSignature()" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad"></script>
+     <script>
+        // Initialize Signature Pad
+        var canvas = document.getElementById('signatureCanvas');
+        var signaturePad = new SignaturePad(canvas);
+        function saveSignature() {
+            var signatureData = signaturePad.toDataURL();
+         };
+            document.getElementById('signatureData').value = signatureData;
+            signaturePad.clear();
+
+            canvas.addEventListener('touchstart', function (e) {
+                // Prevent scrolling when touching the canvas
+                e.preventDefault();
+            }, false);
+    </script>
+    <script>
+        function saveSignature() {
+        var signatureData = signaturePad.toDataURL();
+        document.getElementById('signatureData').value = signatureData;
+       }
+
+    // Optional: Clear the signature pad when the page is loaded
+    window.onload = function() {
+        clearSignature();
+       };
+    </script>
+
+}
